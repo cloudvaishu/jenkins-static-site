@@ -10,9 +10,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ec2-key', keyFileVariable: 'KEY')]) {
-                  sh 'scp -i $KEY -o StrictHostKeyChecking=no -r index.html style.css ubuntu@15.134.129.229:/var/www/html/'
+                    sh 'scp -i $KEY -o StrictHostKeyChecking=no -r staticweb/index.html staticweb/style.css ubuntu@15.134.129.229:/var/www/html/'
+                }
             }
         }
     }
-}
 }

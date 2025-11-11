@@ -9,8 +9,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'scp -r * ubuntu@54.252.156.15:/var/www/html/'
-                 sh 'sudo cp index.html /var/www/html/'
+                sh 'scp -r * ubuntu@15.134.129.229:/var/www/html/'
+                sh 'sudo cp index.html /var/www/html/'
                 sh 'sudo cp style.css /var/www/html/'
             }
         }

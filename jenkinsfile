@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/cloudvaishu/jenkins-static-site.git'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'scp -r * ubuntu@54.252.156.15:/var/www/html/'
+                 sh 'sudo cp index.html /var/www/html/'
+                sh 'sudo cp style.css /var/www/html/'
+            }
+        }
+    }
+}

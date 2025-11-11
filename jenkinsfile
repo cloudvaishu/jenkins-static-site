@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Clone Repo') {
             steps {
                 git 'https://github.com/cloudvaishu/jenkins-static-site.git'
             }
@@ -10,12 +10,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ec2-key', keyFileVariable: 'KEY')]) {
-                    sh '''
-                        scp -i $KEY -o StrictHostKeyChecking=no staticweb/index.html staticweb/style.css ubuntu@15.134.129.229:/tmp/
-                        ssh -i $KEY -o StrictHostKeyChecking=no ubuntu@15.134.129.229 "sudo mv /tmp/index.html /var/www/html/ && sudo mv /tmp/style.css /var/www/html/"
-                    '''
+                    sh 'scp -i $KEY -o StrictHostKeyChecking=no -r staticweb/index.html staticweb/style.css ubuntu@15.134.129.229:/var/www/html/'
                 }
             }
         }
     }
 }
+
